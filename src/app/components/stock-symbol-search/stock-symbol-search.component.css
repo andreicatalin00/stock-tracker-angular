@@ -15,7 +15,11 @@
   align-content: center;
   justify-content: space-around;
 }
+.form-field {
+  width: 250px;
+}
 
 #trackBtn {
+  height: 65px;
   margin-bottom: 1.34375em;
 }
