@@ -1,0 +1,21 @@
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
+  padding: 20px;
+}
+.hint {
+  text-align: center;
+  font-size: large;
+  padding: 10px;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-around;
+}
+
+#trackBtn {
+  margin-bottom: 1.34375em;
+}

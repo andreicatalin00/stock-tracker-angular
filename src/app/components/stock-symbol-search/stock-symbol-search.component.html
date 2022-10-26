@@ -1,9 +1,18 @@
 <div class="title">Stock Symbol Search</div>
-<div class="hint">Enter the symbol code of a stock to track it</div>
-<mat-form-field class="example-form-field" appearance="fill">
-    <mat-label>Clearable input</mat-label>
-    <input matInput type="text" [(ngModel)]="value">
-    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-        <mat-icon>close</mat-icon>
+<div class="hint">Enter the symbol code of a stock to track it...</div>
+<div class="content">
+  <mat-form-field class="example-form-field" appearance="outline">
+    <mat-label>Symbol Code</mat-label>
+    <input id="stockInput" matInput type="text" [(ngModel)]="value" />
+    <button
+      *ngIf="value"
+      matSuffix
+      mat-icon-button
+      aria-label="clear"
+      (click)="value = ''"
+    >
+      <mat-icon>close</mat-icon>
     </button>
-</mat-form-field>
+  </mat-form-field>
+  <button id="trackBtn" mat-raised-button color="primary">Track Symbol</button>
+</div>
