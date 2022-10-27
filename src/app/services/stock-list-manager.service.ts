@@ -1,38 +1,48 @@
 import { Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { StockSymbol } from '../models/stock-symbol';
 import { StockService } from './stock.service';
 
 @Injectable({ providedIn: 'root' })
 export class StockListManagerService implements OnInit {
-  public stockSymbolsMap: Map<string, StockSymbol>;
+  private stockSymbolsMap = new Map<string, StockSymbol>();
+  private stockSymbolsMapSubject = new BehaviorSubject<
+    ReadonlyMap<string, StockSymbol>
+  >(this.readonlyStockSymbolsMap);
 
   constructor(private readonly stockService: StockService) {
-    this.stockSymbolsMap = new Map<string, StockSymbol>();
-
     const codes = JSON.parse(localStorage.getItem('stockSymbolCodes')) || [];
-    console.log(codes);
     codes.forEach((code: string) => this.addSymbolToList(code));
   }
 
   public ngOnInit(): void {}
 
-  public addSymbolToList(symbolCode: string): void {
-    this.stockSymbolsMap.set(symbolCode, undefined);
-    this.updateLocalStorage();
+  public stockSymbolsMapObservable(): Observable<
+    ReadonlyMap<string, StockSymbol>
+  > {
+    return this.stockSymbolsMapSubject.asObservable();
+  }
 
-    this.stockService.getStock(symbolCode).subscribe({
-      next: (stockSymbol) => {
-        if (!!stockSymbol.currentPrice) {
-          this.stockSymbolsMap.set(symbolCode, stockSymbol);
-        }
-      },
-      error: () =>
-        console.log(
-          'There has been an error while fetching the information about the stock: ' +
-            symbolCode
-        ),
-    });
-    console.log(symbolCode);
+  public addSymbolToList(symbolCode: string): void {
+    if (!this.stockSymbolsMap.has(symbolCode)) {
+      this.stockSymbolsMap.set(symbolCode, undefined);
+      this.notifyMapChanges();
+      this.updateLocalStorage();
+
+      this.stockService.getStock(symbolCode).subscribe({
+        next: (stockSymbol) => {
+          if (!!stockSymbol.currentPrice) {
+            this.stockSymbolsMap.set(symbolCode, stockSymbol);
+            this.notifyMapChanges();
+          }
+        },
+        error: () =>
+          console.log(
+            'There has been an error while fetching the information about the stock: ' +
+              symbolCode
+          ),
+      });
+    }
   }
 
   private updateLocalStorage(): void {
@@ -40,5 +50,13 @@ export class StockListManagerService implements OnInit {
       'stockSymbolCodes',
       JSON.stringify([...this.stockSymbolsMap.keys()])
     );
+  }
+
+  private get readonlyStockSymbolsMap(): ReadonlyMap<string, StockSymbol> {
+    return this.stockSymbolsMap;
+  }
+
+  private notifyMapChanges(): void {
+    this.stockSymbolsMapSubject.next(this.readonlyStockSymbolsMap);
   }
 }

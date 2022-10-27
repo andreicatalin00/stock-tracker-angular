@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-title>
+    [ {{ stockSymbol[0] }} ]
+    <button mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-title>
+  <mat-card-title>{{ stockSymbol[1]?.name }} </mat-card-title>
+
+  <mat-card-content>
+    <div *ngIf="!!stockSymbol[1]">
+      <div>Change Today: {{ stockSymbol[1]?.changePercent }}%</div>
+      <div>Current Price: {{ stockSymbol[1]?.currentPrice }}</div>
+      <div>High Price: {{ stockSymbol[1]?.highPrice }}</div>
+      <div>Opening Price: {{ stockSymbol[1]?.openingPrice }}</div>
+    </div>
+    <div *ngIf="!stockSymbol[1] && !loadTimeout">Loading...</div>
+    <div *ngIf="!stockSymbol[1] && loadTimeout">Symbol not found!</div>
+  </mat-card-content>
+  <mat-card-footer>
+    <mat-progress-bar
+      *ngIf="!stockSymbol[1] && !loadTimeout"
+      mode="indeterminate"
+    ></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

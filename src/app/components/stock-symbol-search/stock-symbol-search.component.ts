@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { StockListManagerService } from '../../services/stock-list-manager.service';
 
@@ -6,6 +6,7 @@ import { StockListManagerService } from '../../services/stock-list-manager.servi
   selector: 'app-stock-symbol-search',
   templateUrl: './stock-symbol-search.component.html',
   styleUrls: ['./stock-symbol-search.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StockSymbolSearchComponent implements OnInit {
   public symbolCodeControl: FormControl = new FormControl('', [
@@ -21,7 +22,9 @@ export class StockSymbolSearchComponent implements OnInit {
   ngOnInit(): void {}
 
   public trackSymbol(): void {
-    this.stockListManagerService.addSymbolToList(this.symbolCodeControl.value);
+    this.stockListManagerService.addSymbolToList(
+      this.symbolCodeControl.value.toUpperCase()
+    );
   }
   public getErrorMessage(): string {
     console.log(this.symbolCodeControl.errors);

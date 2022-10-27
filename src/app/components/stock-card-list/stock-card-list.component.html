@@ -1,4 +1,2 @@
-<div *ngFor="let stock of stocksMap.keys()">
-  {{ stock }}
-</div>
-<!-- <div>abc</div> -->
+<app-stock-card *ngFor="let stock of stocksMap.entries()" [stockSymbol]="stock">
+</app-stock-card>

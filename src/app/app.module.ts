@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AppComponent } from './app.component';
 import { StockSymbolSearchComponent } from './components/stock-symbol-search/stock-symbol-search.component';
@@ -26,6 +28,8 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatCardModule,
+    MatProgressBarModule,
   ],
   declarations: [
     AppComponent,
