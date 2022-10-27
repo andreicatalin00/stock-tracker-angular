@@ -23,7 +23,6 @@ export class StockService {
           openingPrice: stock.o,
           highPrice: stock.h,
         };
-        console.log(stockSymbol);
         return stockSymbol;
       })
     );
@@ -40,7 +39,6 @@ export class StockService {
     const params = new HttpParams()
       .set('q', symbolCode.toUpperCase())
       .set('token', this.apiToken);
-    // search?q=apple
 
     return this.http.get(this.configURL + 'search', { params });
   }

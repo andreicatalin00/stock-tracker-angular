@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { StockSymbolSearchComponent } from './components/stock-symbol-search/stock-symbol-search.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StockCardComponent } from './components/stock-card/stock-card.component';
+import { StockCardListComponent } from './components/stock-card-list/stock-card-list.component';
 
 @NgModule({
   imports: [
@@ -23,7 +25,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatButtonModule,
   ],
-  declarations: [AppComponent, StockSymbolSearchComponent],
+  declarations: [
+    AppComponent,
+    StockSymbolSearchComponent,
+    StockCardComponent,
+    StockCardListComponent,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
