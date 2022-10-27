@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { StockService } from '../../services/stock.service';
 
 @Component({
   selector: 'app-stock-symbol-search',
@@ -12,6 +13,8 @@ export class StockSymbolSearchComponent implements OnInit {
     Validators.maxLength(5),
     Validators.pattern('^[a-zA-Z]+$'),
   ]);
+
+  constructor(private readonly stockService: StockService) {}
 
   ngOnInit(): void {}
 
