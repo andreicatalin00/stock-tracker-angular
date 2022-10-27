@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { StockService } from '../../services/stock.service';
+import { StockListManagerService } from '../../services/stock-list-manager.service';
 
 @Component({
   selector: 'app-stock-symbol-search',
@@ -14,12 +14,14 @@ export class StockSymbolSearchComponent implements OnInit {
     Validators.pattern('^[a-zA-Z]+$'),
   ]);
 
-  constructor(private readonly stockService: StockService) {}
+  constructor(
+    private readonly stockListManagerService: StockListManagerService
+  ) {}
 
   ngOnInit(): void {}
 
   public trackSymbol(): void {
-    console.log(this.symbolCodeControl.value);
+    this.stockListManagerService.addSymbolToList(this.symbolCodeControl.value);
   }
   public getErrorMessage(): string {
     console.log(this.symbolCodeControl.errors);
