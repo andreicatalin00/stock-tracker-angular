@@ -9,9 +9,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { StockSymbolSearchComponent } from './components/stock-symbol-search/stock-symbol-search.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
