@@ -12,9 +12,11 @@ import { StockSymbolSearchComponent } from './components/stock-symbol-search/sto
 import { HttpClientModule } from '@angular/common/http';
 import { StockCardComponent } from './components/stock-card/stock-card.component';
 import { StockCardListComponent } from './components/stock-card-list/stock-card-list.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
