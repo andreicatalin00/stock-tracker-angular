@@ -1,25 +1,27 @@
 <mat-card>
   <mat-card-title>
-    [ {{ stockSymbol[0] }} ]
+    [ {{ symbolCode }} ]
     <button mat-icon-button>
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-title>
-  <mat-card-title>{{ stockSymbol[1]?.name }} </mat-card-title>
+  <mat-card-title>{{ stockSymbol?.name }} </mat-card-title>
 
   <mat-card-content>
-    <div *ngIf="!!stockSymbol[1]">
-      <div>Change Today: {{ stockSymbol[1]?.changePercent }}%</div>
-      <div>Current Price: {{ stockSymbol[1]?.currentPrice }}</div>
-      <div>High Price: {{ stockSymbol[1]?.highPrice }}</div>
-      <div>Opening Price: {{ stockSymbol[1]?.openingPrice }}</div>
+    <div *ngIf="!!stockSymbol">
+      <div>Change Today: {{ stockSymbol?.changePercent }}%</div>
+      <div>Current Price: {{ stockSymbol?.currentPrice }}</div>
+      <div>High Price: {{ stockSymbol?.highPrice }}</div>
+      <div>Opening Price: {{ stockSymbol?.openingPrice }}</div>
     </div>
-    <div *ngIf="!stockSymbol[1] && !loadTimeout">Loading...</div>
-    <div *ngIf="!stockSymbol[1] && loadTimeout">Symbol not found!</div>
+    <ng-container *ngIf="!stockSymbol">
+      <div *ngIf="!fetchCompleted">Loading...</div>
+      <div *ngIf="fetchCompleted">Symbol not found!</div>
+    </ng-container>
   </mat-card-content>
   <mat-card-footer>
     <mat-progress-bar
-      *ngIf="!stockSymbol[1] && !loadTimeout"
+      *ngIf="!stockSymbol && !fetchCompleted"
       mode="indeterminate"
     ></mat-progress-bar>
   </mat-card-footer>

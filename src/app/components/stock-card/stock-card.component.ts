@@ -1,29 +1,38 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { filter, take } from 'rxjs';
+import { StockSymbol } from '../../models/stock-symbol';
+import { StockListManagerService } from '../../services/stock-list-manager.service';
 
 @Component({
   selector: 'app-stock-card',
   templateUrl: './stock-card.component.html',
   styleUrls: ['./stock-card.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StockCardComponent implements OnInit {
   @Input()
-  public stockSymbol: any[];
+  public symbolCode: string;
 
-  public loadTimeout = false;
+  public stockSymbol: StockSymbol;
+  public fetchCompleted: boolean = false;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-    setTimeout(() => {
-      this.loadTimeout = true;
-      this.changeDetectorRef.detectChanges();
-    }, 5000);
+  constructor(
+    private readonly stockListManagerService: StockListManagerService
+  ) {}
+
+  ngOnInit() {
+    this.stockListManagerService
+      .fetchCompletedObserable()
+      .pipe(filter((code: string) => code === this.symbolCode))
+      .subscribe(() => {
+        this.stockSymbol = this.stockListManagerService.getStockFromMap(
+          this.symbolCode
+        );
+        this.fetchCompleted = true;
+      });
   }
-
-  ngOnInit() {}
 }

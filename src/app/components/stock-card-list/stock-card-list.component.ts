@@ -4,6 +4,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { StockSymbol } from '../../models/stock-symbol';
 import { StockListManagerService } from '../../services/stock-list-manager.service';
 
@@ -11,23 +12,17 @@ import { StockListManagerService } from '../../services/stock-list-manager.servi
   selector: 'app-stock-card-list',
   templateUrl: './stock-card-list.component.html',
   styleUrls: ['./stock-card-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StockCardListComponent implements OnInit {
-  public stocksMap: ReadonlyMap<string, StockSymbol>;
+  public symbolCodes: string[];
 
   constructor(
-    private stockListManagerSerivce: StockListManagerService,
-    private readonly changeDetectorRef: ChangeDetectorRef
+    private readonly stockListManagerSerivce: StockListManagerService
   ) {
-    this.stocksMap = new Map<string, StockSymbol>();
-
     this.stockListManagerSerivce
-      .stockSymbolsMapObservable()
-      .subscribe((map: ReadonlyMap<string, StockSymbol>) => {
-        this.stocksMap = map;
-        this.changeDetectorRef.markForCheck();
-        console.log(map.keys());
+      .symbolCodesObservable()
+      .subscribe((codes: string[]) => {
+        this.symbolCodes = codes;
       });
   }
 
