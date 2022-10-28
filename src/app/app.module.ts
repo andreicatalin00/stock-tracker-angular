@@ -16,6 +16,7 @@ import { StockCardComponent } from './components/stock-card/stock-card.component
 import { StockCardListComponent } from './components/stock-card-list/stock-card-list.component';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { AppRoutingModule } from './app-routing.module';
     StockSymbolSearchComponent,
     StockCardComponent,
     StockCardListComponent,
+    HomeComponent,
   ],
   bootstrap: [AppComponent],
 })
