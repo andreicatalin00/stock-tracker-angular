@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StockCardComponent } from './components/stock-card/stock-card.component';
 import { StockCardListComponent } from './components/stock-card-list/stock-card-list.component';
 import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     MatCardModule,
     MatProgressBarModule,
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
