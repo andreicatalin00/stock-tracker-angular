@@ -8,6 +8,7 @@ import { StockService } from '../../services/stock.service';
   styleUrls: ['./stock-sentiment.component.css'],
 })
 export class StockSentimentComponent implements OnInit {
+  private date = new Date();
   constructor(
     private readonly route: ActivatedRoute,
     private readonly stockService: StockService
@@ -16,6 +17,15 @@ export class StockSentimentComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('symbol');
     console.log(id);
-    this.stockService.getStockSentiment(id, '2020-03-15', '2020-08-15');
+    const from =
+      this.date.getFullYear() + '-' + '05' + '-' + this.date.getDate();
+    const to =
+      this.date.getFullYear() +
+      '-' +
+      this.date.getMonth().toString().padStart(2, '0') +
+      '-' +
+      this.date.getDate();
+    console.log(from);
+    this.stockService.getStockSentiment(id, from, to);
   }
 }
