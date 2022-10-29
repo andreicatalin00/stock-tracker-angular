@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { filter, take } from 'rxjs';
 import { StockSymbol } from '../../models/stock-symbol';
 import { StockListManagerService } from '../../services/stock-list-manager.service';
@@ -21,7 +22,8 @@ export class StockCardComponent implements OnInit {
   public fetchCompleted: boolean = false;
 
   constructor(
-    private readonly stockListManagerService: StockListManagerService
+    private readonly stockListManagerService: StockListManagerService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -34,5 +36,9 @@ export class StockCardComponent implements OnInit {
         );
         this.fetchCompleted = true;
       });
+  }
+
+  public removeStock() {
+    this.stockListManagerService.removeStock(this.symbolCode);
   }
 }

@@ -46,6 +46,14 @@ export class StockListManagerService implements OnInit {
     }
   }
 
+  public removeStock(symbolCode: string): void {
+    const codeIndex = this.symbolCodes.findIndex((code) => code === symbolCode);
+    this.symbolCodes.splice(codeIndex, 1);
+    this.stockSymbolsMap.delete(symbolCode);
+    this.updateLocalStorage();
+    this.symbolCodesSubject.next(this.symbolCodes);
+  }
+
   private addSymbolToMap(symbolCode: string): void {
     this.stockService.getStock(symbolCode).subscribe({
       next: (stockSymbol) => {

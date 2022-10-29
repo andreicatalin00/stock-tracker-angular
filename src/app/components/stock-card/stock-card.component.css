@@ -4,3 +4,20 @@ mat-card-title {
   align-content: center;
   justify-content: space-between;
 }
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.red-icon {
+  color: red;
+}
+
+.green-icon {
+  color: green;
+}
+.sentiment-button {
+  margin: 10px 0px;
+}

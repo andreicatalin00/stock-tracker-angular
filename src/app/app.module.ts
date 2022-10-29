@@ -17,6 +17,7 @@ import { StockCardListComponent } from './components/stock-card-list/stock-card-
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
+import { StockSentimentComponent } from './components/stock-sentiment/stock-sentiment.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { HomeComponent } from './components/home/home.component';
     StockCardComponent,
     StockCardListComponent,
     HomeComponent,
+    StockSentimentComponent,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,18 +1,40 @@
 <mat-card>
   <mat-card-title>
     [ {{ symbolCode }} ]
-    <button mat-icon-button>
+    <button
+      mat-icon-button
+      id="{{ 'remove' + symbolCode }}"
+      (click)="removeStock()"
+    >
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-title>
   <mat-card-title>{{ stockSymbol?.name }} </mat-card-title>
 
   <mat-card-content>
-    <div *ngIf="!!stockSymbol">
-      <div>Change Today: {{ stockSymbol?.changePercent }}%</div>
-      <div>Current Price: {{ stockSymbol?.currentPrice }}</div>
-      <div>High Price: {{ stockSymbol?.highPrice }}</div>
-      <div>Opening Price: {{ stockSymbol?.openingPrice }}</div>
+    <div class="content" *ngIf="!!stockSymbol">
+      <div>
+        <div>Change Today: {{ stockSymbol?.changePercent }}%</div>
+        <div>Current Price: {{ stockSymbol?.currentPrice }}</div>
+        <div>High Price: {{ stockSymbol?.highPrice }}</div>
+        <div>Opening Price: {{ stockSymbol?.openingPrice }}</div>
+
+        <button
+          class="sentiment-button"
+          id="{{ 'sentiment' + symbolCode }}"
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/product-details', symbolCode]"
+        >
+          Go to Social Sentiment
+        </button>
+      </div>
+      <div *ngIf="stockSymbol?.changePercent < 0">
+        <mat-icon class="red-icon">▼</mat-icon>
+      </div>
+      <div *ngIf="stockSymbol?.changePercent >= 0">
+        <mat-icon class="green-icon">▲</mat-icon>
+      </div>
     </div>
     <ng-container *ngIf="!stockSymbol">
       <div *ngIf="!fetchCompleted">Loading...</div>
