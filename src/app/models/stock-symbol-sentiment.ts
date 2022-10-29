@@ -1,7 +1,7 @@
 export type StockSymbolSentiment = {
   symbol: string;
   change: number;
-  month: string;
+  month: number;
   mspr: number;
   year: number;
 };

@@ -1,1 +1,29 @@
-<div>hello</div>
+<mat-card>
+  <mat-card-title> [ {{ symbolCode }} ] </mat-card-title>
+
+  <mat-card-content>
+    <div class="content" *ngIf="!!usedMonths">
+      <mat-card class="element" *ngFor="let mon of usedMonths">
+        <mat-card-title>
+          {{ month[mon] }}
+        </mat-card-title>
+        <mat-card-content>
+          <div *ngIf="!!sentimentMap.get(mon)">
+            <div>Change: {{ sentimentMap.get(mon)?.change }}</div>
+            <div>MSPR: {{ sentimentMap.get(mon)?.mspr }}</div>
+            <div *ngIf="sentimentMap.get(mon)?.change < 0">
+              <mat-icon class="red-icon">▼</mat-icon>
+            </div>
+            <div *ngIf="sentimentMap.get(mon)?.change >= 0">
+              <mat-icon class="green-icon">▲</mat-icon>
+            </div>
+          </div>
+          <div *ngIf="!sentimentMap.get(mon)">No data found!</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <button id="backBtn" mat-flat-button color="primary" [routerLink]="['/']">
+      Back
+    </button>
+  </mat-card-content></mat-card
+>

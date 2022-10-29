@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { StockSymbolSentiment } from '../../models/stock-symbol-sentiment';
 import { StockService } from '../../services/stock.service';
 
 @Component({
@@ -8,24 +9,67 @@ import { StockService } from '../../services/stock.service';
   styleUrls: ['./stock-sentiment.component.css'],
 })
 export class StockSentimentComponent implements OnInit {
-  private date = new Date();
+  symbolCode: string;
+  sentimentMap = new Map<number, StockSymbolSentiment>();
+  sentimentData: StockSymbolSentiment[] = [];
+  readonly month = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  usedMonths: number[] = [];
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly stockService: StockService
-  ) {}
+  ) {
+    this.symbolCode = this.route.snapshot.paramMap.get('symbol');
+  }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('symbol');
-    console.log(id);
-    const from =
-      this.date.getFullYear() + '-' + '05' + '-' + this.date.getDate();
+    const date = new Date();
+    const dateFrom = new Date();
+
     const to =
-      this.date.getFullYear() +
+      date.getFullYear() +
       '-' +
-      this.date.getMonth().toString().padStart(2, '0') +
+      (date.getMonth() + 1).toString().padStart(2, '0') +
       '-' +
-      this.date.getDate();
-    console.log(from);
-    this.stockService.getStockSentiment(id, from, to);
+      date.getDate();
+
+    this.usedMonths.push(date.getMonth());
+    date.setMonth(date.getMonth() - 1);
+    this.usedMonths.unshift(date.getMonth());
+    date.setMonth(date.getMonth() - 1);
+    this.usedMonths.unshift(date.getMonth());
+    const monthFrom = date.getMonth();
+    const from =
+      date.getFullYear() +
+      '-' +
+      monthFrom.toString().padStart(2, '0') +
+      '-' +
+      date.getDate();
+
+    this.stockService
+      .getStockSentiment(this.symbolCode, from, to)
+      .subscribe((data: any) => {
+        this.sentimentData = data.data;
+        this.usedMonths.forEach((mon) => {
+          data.data.forEach((value: StockSymbolSentiment) => {
+            if (value.month == mon + 1) {
+              this.sentimentMap.set(mon, value);
+            }
+          });
+        });
+      });
   }
 }

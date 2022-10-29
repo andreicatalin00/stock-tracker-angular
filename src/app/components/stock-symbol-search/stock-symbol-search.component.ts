@@ -27,7 +27,6 @@ export class StockSymbolSearchComponent implements OnInit {
     );
   }
   public getErrorMessage(): string {
-    console.log(this.symbolCodeControl.errors);
     if (this.symbolCodeControl.hasError('maxlength')) {
       return 'Should have maximum 5 letters';
     } else if (this.symbolCodeControl.hasError('pattern')) {

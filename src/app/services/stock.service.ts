@@ -34,9 +34,9 @@ export class StockService {
       .set('from', from)
       .set('to', to)
       .set('token', this.apiToken);
-    this.http
-      .get(this.configURL + 'stock/insider-sentiment', { params })
-      .subscribe((x) => console.log(x));
+    return this.http.get(this.configURL + 'stock/insider-sentiment', {
+      params,
+    });
   }
 
   public getStockByCode$(symbolCode: string): Observable<any> {

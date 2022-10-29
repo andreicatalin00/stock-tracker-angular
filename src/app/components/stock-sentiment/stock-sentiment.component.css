@@ -1,0 +1,21 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#backBtn {
+  margin: 10px;
+}
+
+.element {
+  width: 30%;
+}
+
+.red-icon {
+  color: red;
+}
+
+.green-icon {
+  color: green;
+}
