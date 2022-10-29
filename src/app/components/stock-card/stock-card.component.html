@@ -24,7 +24,7 @@
           id="{{ 'sentiment' + symbolCode }}"
           mat-raised-button
           color="primary"
-          [routerLink]="['/product-details', symbolCode]"
+          (click)="goToSentiment()"
         >
           Go to Social Sentiment
         </button>

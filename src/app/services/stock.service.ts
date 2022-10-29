@@ -28,6 +28,17 @@ export class StockService {
     );
   }
 
+  public getStockSentiment(symbolCode: string, from: string, to: string) {
+    const params = new HttpParams()
+      .set('symbol', symbolCode.toUpperCase())
+      .set('from', from)
+      .set('to', to)
+      .set('token', this.apiToken);
+    this.http
+      .get(this.configURL + 'stock/insider-sentiment', { params })
+      .subscribe((x) => console.log(x));
+  }
+
   public getStockByCode$(symbolCode: string): Observable<any> {
     const params = new HttpParams()
       .set('symbol', symbolCode.toUpperCase())

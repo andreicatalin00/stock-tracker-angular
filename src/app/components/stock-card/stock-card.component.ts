@@ -41,4 +41,8 @@ export class StockCardComponent implements OnInit {
   public removeStock() {
     this.stockListManagerService.removeStock(this.symbolCode);
   }
+
+  public goToSentiment() {
+    this.router.navigate(['/sentiment', this.symbolCode]);
+  }
 }
